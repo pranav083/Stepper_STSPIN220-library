@@ -47,7 +47,7 @@
 #include "Stepper_STSPIN220.h"
 
 // constructor to set up pins and initialize data
-Stepper_STSPIN220::Stepper_STSPIN220(int motor_steps, int ms1_pin, int ms2_pin, int ms3_pin, int ms4_pin, int enable_pin = -1)
+Stepper_STSPIN220::Stepper_STSPIN220(unsigned long motor_steps, int ms1_pin, int ms2_pin, int ms3_pin, int ms4_pin, int enable_pin = -1)
 {
    this->enable_pin = enable_pin;
    this->ms1_pin = ms1_pin;
@@ -119,6 +119,14 @@ void Stepper_STSPIN220::step(unsigned long num_steps)
    }
 }
 
+/*
+ * Sets the speed in revs per minute
+ */
+void Stepper_STSPIN220::setSpeed(long Speed)
+{
+  this->step_delay = 60L * 1000L * 1000L / this->motor_steps / Speed;
+}
+
 //   version() returns the version of the library:
 int Stepper_STSPIN220::version(void)
 {
@@ -144,6 +152,7 @@ int Stepper_STSPIN220::version(void)
 void Stepper_STSPIN220::setStepMode(int stepMode)
 {   
     this->step_mode = stepMode;
+   //  this->motor_steps = motor_steps * stepMode;   // for microstepping to update the total step count
     switch (stepMode)
     {
                   //  MODE4   MODE3  MODE2 MODE1

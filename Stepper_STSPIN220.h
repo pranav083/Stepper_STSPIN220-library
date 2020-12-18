@@ -45,12 +45,13 @@
 class Stepper_STSPIN220 {
   public:
     // constructors:
-    Stepper_STSPIN220(int motor_steps, int ms1_pin, int ms2_pin, int ms3_pin, int ms4_pin, int enable_pin);
+    Stepper_STSPIN220(unsigned long motor_steps, int ms1_pin, int ms2_pin, int ms3_pin, int ms4_pin, int enable_pin);
 
     // speed setter method:
     void setDelay(unsigned long delay);   // in microseconds
 
     void enable(int enable);
+    void setSpeed(long whatSpeed);
 
     // return software version
     int version(void);
@@ -65,10 +66,10 @@ class Stepper_STSPIN220 {
 
     
     int direction;               // Direction of rotation
-    int motor_steps;             // number of steps motor has per revolution
+    unsigned long motor_steps;             // number of steps motor has per revolution
     unsigned long step_delay;    // delay between steps, in us
-    int num_steps;               // total number of steps to step
-    int step_number;             // which step the motor is on
+    unsigned long num_steps;               // total number of steps to step
+    unsigned long step_number;             // which step the motor is on
     int step_mode;               // which mode 1 / 1, 2, 4, 8, or 16
     int step_pin;                // pin which controls stepping
 
